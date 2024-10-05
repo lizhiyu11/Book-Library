@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诚邀您图书入库</title>
+<style>
+    body{
+        background: url("./img/ts.jpg");
+        background-size: cover ;
+    }
+    
+    div{
+        align-items: center;
+        
+    }
+    form{
+        display:inline-block;
+        vertical-align:bottom;
+        color: #e7f3fb;
+    }
+    .f1 {
+            padding: 40px;
+            border-radius: 25px;
+            text-align: center;
+            width: 350px;
+            margin: auto;
+            backdrop-filter: blur(7px) ;
+            box-shadow: #e7f3fb;
+        }
+    .f1 input {
+            padding: 5px;
+            margin-bottom:5px;
+            border-radius:20px;
+            border: none;
+            background:#fdfcec;
+            box-shadow:inset 5px 5px 15px rgba(0，0，0，0.1);
+        
+        }
+    table td,table tr{
+        width: 200px;
+        height: 20px;
+    }
+    h1{
+        color: #fcffeb;
+    }
+</style>
+<script>
+    function show(){
+				ran = document.getElementById("ran");
+				num = document.getElementById("num");
+				num.value = ran.value
+                //编写一个公用的函数使二者联动
+	
+    }
+    function valid() {
+        var re="";
+        let ISBN=document.getElementById("ISBN").value;
+        let BookName=document.getElementById("BookName").value;
+        let author=document.getElementById("author").value;
+        let kind=document.getElementById("kind").value;
+        let y=document.getElementById("y").value;
+    
+        let ori=document.getElementById("ori").value;
+        let date=document.getElementById("date").value;
+        let num=document.getElementById("num").value;
+        let pri=document.getElementById("pri").value;
+        let intr=document.getElementById("intr").value;
+        
+        let authorPat=/^[^\d]+$/;
+
+        var re=re+ISBN+",";
+        var re=re+BookName+",";
+        var re=re+author+",";
+        var re=re+kind+",";
+        var re=re+y+",";
+        var re=re+ori+",";
+        var re=re+date+",";
+        var re=re+num+",";
+        var re=re+pri+",";
+        var re=re+intr+",";
+    var flag=true;
+        if(ISBN.length<=5){
+            flag=false;
+            alert("ISBN长度错误");
+            document.getElementById("ISBN").focus();
+            document.getElementById("ISBN").value="";
+    }
+        if(BookName.length<2){
+            flag=false;
+            alert("书名过短");
+            document.getElementById("BookName").focus();
+            document.getElementById("BookName").value="";
+    }
+        if(!authorPat.test(author)){
+            flag=false;
+            alert("作者名错误");
+            document.getElementById("author").focus();
+            document.getElementById("author").value="";
+     }      
+        if(num.length>5||num.length<1){
+                flag=false;
+                alert("版次错误");
+                document.getElementById("num").focus();
+                document.getElementById("num").value="";
+        }
+    
+    if(flag==true)
+    {
+        alert(re);
+        document.getElementById("form1").submit();
+        }
+    }
+
+</script>
+</head>
+<body>
+<div class="f1">
+    <h1>图书入库</h1>
+    <form name="form1" id="form1" method="post" action="reg"  > 
+        <table>
+            <tr>
+                <td>ISBN:</td><td><input type="text" name="ISBN" id="ISBN" ></td> 
+            </tr>
+            <tr>
+                <td>图书名:</td><td><input type="text" name="BookName" id="BookName" ></td>
+            </tr>
+            <tr>
+                <td>作者:</td><td><input type="text" name="author" id="author" ></td>
+            </tr>
+            <tr>
+                <td>类别:</td><td><div></div>
+                <select name="kind" id="kind" >
+                    <option value="1"  selected="selected">理工科</option>
+                    <option value="2">人文</option>
+                    <option value="3">历史</option>
+                    <option value="4">地理</option>
+                </select></div></td>
+            </tr>
+            <tr>
+                <td>是否贷款:</td><td> <div></div>
+                    <input type="radio" name="yn" id="y" value="yes" checked="checked">是
+                    <input type="radio" name="yn" id="n" value="no" />否
+                </div></td> 
+            </tr>
+            <tr>
+                <td>出版社:</td><td><input type="text" name="ori" id="ori"  list="cbs"></td>
+            <datalist id="cbs">
+                    <option value="清华大学出版社">清华大学出版社</option>
+                    <option value="人民出版社">人民出版社</option>
+                    <option value="北京大学出版社">北京大学出版社</option>
+                    <option value="高等教育出版社">高等教育出版社</option>
+                </datalist>
+            </tr>
+             <tr>
+                <td>出版日期:</td><td><input type="date" name="date" id="date"></td>
+            </tr>
+            <tr>
+                <td>版次</td><td><input type="text" name="num" id="num" />
+                    <input type="range" name="ran" id="ran" min="1" max="5" step="1"  onchange="show()"/>
+                </td>
+            </tr>
+            <tr>
+                <td>单价:</td><td><input type="text" name="pri" id="pri" >元</td>
+            </tr>
+            <tr>
+                <td>图书简介:</td><td><textarea name="intr" id="intr"  cols="30" rows="6"></textarea></td>
+            </tr>
+            <tr>
+           <td> <input type="submit" value="提交" onclick="valid();" /></td>
+           <td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="取消"/></td>
+            </tr>
+            </form>
+        </table>
+    </form>
+</div>
+</body>
+</html>
